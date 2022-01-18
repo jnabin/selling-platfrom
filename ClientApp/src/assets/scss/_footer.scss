@@ -1,0 +1,39 @@
+/*=============================================
+=                 Footer Styles              =
+=============================================*/
+/*.footer-wrapper {
+    background-color: $footer-bg;
+    padding: 15px;
+    color: $color-white;
+    font-size: 12px;
+}*/
+
+.footer-wrapper {
+  background-color: $primary-footer-bg;
+  opacity: 1;
+  h4 {
+    color: white;
+    margin-bottom: 16px;
+  }
+  a, .gray-color{
+    color: $xc-footer-link-color;
+  }
+
+  a:hover {
+    color: green !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+/*=====  End of Footer Styles   ======*/
+
+
+

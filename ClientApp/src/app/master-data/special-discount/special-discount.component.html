@@ -1,0 +1,280 @@
+<p-toast id="Toastermas">Hello</p-toast>
+<p-table
+  #dt
+  [value]="SpecialDiscounts"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+  [globalFilterFields]="displayedColumns"
+>
+  <ng-template pTemplate="caption">
+    <div
+      class="
+        d-flex
+        align-items-center
+        flex-column flex-md-row
+        justify-content-between
+      "
+    >
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2 d-none d-md-block"
+        (click)="New_Clicked()"
+      ></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Special Discount</h5>
+      <div class="d-flex justify-content-between c-w-100">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2 d-block d-md-none"
+          (click)="New_Clicked()"
+        ></button>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="form-control search-control p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="specialDiscountId">
+        Special Discount Id
+        <p-sortIcon field="specialDiscountId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="discountMessage">
+        Discount Message
+        <p-sortIcon field="discountMessage"></p-sortIcon>
+      </th>
+      <th pSortableColumn="description">
+        Description
+        <p-sortIcon field="description"></p-sortIcon>
+      </th>
+      <th pSortableColumn="discountPercent">
+        Discount Percent
+        <p-sortIcon field="discountPercent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="startDateUTC">
+        Start Date
+        <p-sortIcon field="startDateUTC"></p-sortIcon>
+      </th>
+      <th pSortableColumn="endDateUTC">
+        End Date
+        <p-sortIcon field="endDateUTC"></p-sortIcon>
+      </th>
+      <th pSortableColumn="productId">
+        Product Id
+        <p-sortIcon field="productId"></p-sortIcon>
+      </th>
+
+      <th pSortableColumn="isActive">
+        IsActive
+        <p-sortIcon field="isActive"></p-sortIcon>
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.specialDiscountId }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.discountMessage }}</td>
+      <td>{{ item.description }}</td>
+      <td>{{ item.discountPercent }}</td>
+      <td>{{ item.startDateUTC | date }}</td>
+      <td>{{ item.endDateUTC | date }}</td>
+      <td>{{ item.productId }}</td>
+      <td *ngIf="item.isActive">
+        <svg height="30" width="30">
+          <circle cx="15" cy="15" r="8" stroke-width="3" fill="green" />
+        </svg>
+      </td>
+      <td *ngIf="!item.isActive">
+        <svg height="30" width="30">
+          <circle cx="15" cy="15" r="8" stroke-width="3" fill="red" />
+        </svg>
+      </td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="Edit_Clicked(item)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning p-button-trash"
+          (click)="Delete_Clicked(item)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '450px' }"
+  header="Special Discount"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <div class="p-field">
+        <label for="Name">Product</label>
+        <p-dropdown
+          [options]="products"
+          [(ngModel)]="SpecialDiscount.productId"
+          optionLabel="name"
+          optionValue="productId"
+          placeholder="Select Product"
+        ></p-dropdown>
+        <small
+          class="p-invalid text-danger"
+          *ngIf="submitted && !SpecialDiscount.productId"
+          >productId is required.</small
+        >
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="name"
+        [(ngModel)]="SpecialDiscount.name"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !SpecialDiscount.name"
+        >Name Code is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="icon">Start Date</label>
+      <p-calendar
+        [(ngModel)]="SpecialDiscount.startDateUTC"
+        [showIcon]="true"
+        [minDate]="tomorrow"
+        inputId="icon"
+        (onSelect)="onBlurMethod($event)"
+      ></p-calendar>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !SpecialDiscount.startDateUTC"
+        >Start Date is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="icon">End Date</label>
+      <p-calendar
+        [(ngModel)]="SpecialDiscount.endDateUTC"
+        [showIcon]="true"
+        [minDate]="minDate"
+        inputId="icon"
+      ></p-calendar>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !SpecialDiscount.endDateUTC"
+        >End Date is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="discountPercent">Discount Percent</label>
+      <input
+        type="number"
+        class="form-control"
+        pInputText
+        id="discountPercent"
+        [(ngModel)]="SpecialDiscount.discountPercent"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !SpecialDiscount.discountPercent"
+        >Discount Percent is required.</small
+      >
+    </div>
+
+    <div class="p-field">
+      <label for="discountMessage">Discount Message</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="discountMessage"
+        [(ngModel)]="SpecialDiscount.discountMessage"
+        required
+        autofocus
+      />
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        pInputTextarea
+        [(ngModel)]="SpecialDiscount.description"
+        required
+        rows="3"
+        cols="20"
+      ></textarea>
+    </div>
+    <div class="p-field p-col-12 md-3">
+      <br />
+      <label for="IsActive">IsActive</label>
+      <p-checkbox
+        [(ngModel)]="SpecialDiscount.isActive"
+        [binary]="true"
+      ></p-checkbox>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="Cancel_Clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Ok"
+      icon="pi pi-check"
+      class="p-button-text btn-sm"
+      (click)="Ok_Clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -1,0 +1,13 @@
+<div class="page-title border-bottom pb-2 mb-2">
+    Single Selection
+</div>
+<p-tree [value]="Tree" selectionMode="single" [(selection)]="selectedFile"
+(onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)"
+    
+    [filter]="true" 
+   
+    ></p-tree>
+
+
+<p-toast></p-toast>
+

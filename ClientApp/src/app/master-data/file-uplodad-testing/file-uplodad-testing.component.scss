@@ -1,0 +1,43 @@
+::ng-deep .kwd {
+  color: blue !important;
+}
+
+::ng-deep div > code {
+  /*display: block;
+    color: black;
+    line-height: 1.3em;*/
+  font-family: "Courier New";
+  /*border: solid thin #a8a8a8; 
+    border-radius: 0 0 10px 10px;*/
+  /*margin-right: 1px;
+    margin-left: 1px;*/
+  padding: 2px;
+  /*background-color: #e6e6e6;*/
+  overflow: auto;
+  /*max-height: 300px;
+    min-height: 300px;*/
+}
+
+::ng-deep .cmt {
+  color: green;
+}
+
+/*a {
+    text-decoration: none;
+}*/
+
+::ng-deep .quote {
+  color: #808080;
+}
+
+/*pre {
+    -webkit-tab-size:16;
+    -moz-tab-size: 16;
+    tab-size: 80px;
+}*/
+
+* {
+  -webkit-tab-size: 8;
+  -moz-tab-size: 8;
+  tab-size: 40px;
+}

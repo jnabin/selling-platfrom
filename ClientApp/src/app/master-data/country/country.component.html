@@ -1,0 +1,257 @@
+<p-toast></p-toast>
+
+
+<p-table
+  #dt
+  [value]="Countries"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+         [globalFilterFields]="displayedColumns"
+>
+  <ng-template pTemplate="caption">
+    <div
+      class="
+        d-flex
+        align-items-center
+        flex-column flex-md-row
+        justify-content-between
+      "
+    >
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2 mr-2 d-none d-md-block"
+        (click)="New_Clicked()"
+      ></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Countries</h5>
+      <div class="d-flex justify-content-between c-w-100">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2 mr-2 d-block d-md-none"
+          (click)="New_Clicked()"
+        ></button>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="form-control search-control p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th [pSortableColumn]="'countryId'">
+        Country Id <p-sortIcon [field]="'countryId'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'countryName'">
+        Country Name <p-sortIcon [field]="'countryName'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'currencyName'">
+        Currency Name <p-sortIcon [field]="'currencyName'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'currencyCode'">
+        Currency Code <p-sortIcon [field]="'currencyCode'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'callingCodesCSV'">
+        Calling Codes CSV <p-sortIcon [field]="'callingCodesCSV'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'flagURL'">
+        flag <p-sortIcon [field]="'flagURL'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'currencySymbol'">
+        Currency Symbol <p-sortIcon [field]="'currencySymbol'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'iso2Code'">
+        ISO2 Code <p-sortIcon [field]="'iso2Code'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'iso3Code'">
+        ISO3 Code <p-sortIcon [field]="'  '"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'numericCountryCode'">
+        Numeric Code <p-sortIcon [field]="'numericCountryCode'"></p-sortIcon>
+      </th>
+      <!-- <th [pSortableColumn]="'stringCode'">
+        String Code <p-sortIcon [field]="'stringCode'"></p-sortIcon>
+      </th> -->
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.countryId }}</td>
+      <td>{{ item.countryName }}</td>
+      <td>{{ item.currencyName }}</td>
+      <td>{{ item.currencyCode }}</td>
+      <td>{{ item.callingCodesCSV }}</td>
+      <td>{{ item.flagURL }}</td>
+      <td>{{ item.currencySymbol }}</td>
+      <td>{{ item.iso2Code }}</td>
+      <td>{{ item.iso3Code }}</td>
+      <td>{{ item.numericCountryCode }}</td>
+      <!-- <td>{{ item.stringCode }}</td> -->
+      <td>
+        <button pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="Edit_Clicked(item)"></button>
+        <button pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning p-button-trash"
+                (click)="Delete_Clicked(item)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '450px' }"
+  header="country Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="countryName">Country Name</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="countryName"
+        [(ngModel)]="Country.countryName"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.countryName"
+        >Country Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="currencyName">Currency Name</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="currencyName"
+        [(ngModel)]="Country.currencyName"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.currencyName"
+        >Currency Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="currencyCode">Currency Code</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="currencyCode"
+        [(ngModel)]="Country.currencyCode"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.currencyCode"
+        >Currency Code is required.</small
+      >
+    </div>
+   
+    <div class="p-field">
+      <label for="symbol">Symbol Code</label>
+      <input
+        type="text"
+        class="form-control" maxlength="3"
+        pInputText
+        id="symbol"
+        [(ngModel)]="Country.currencySymbol"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.currencySymbol"
+        >Symbol Code is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="iso2Code">Iso2Code</label>
+      <input
+        type="text" maxlength="2"
+        class="form-control"
+        pInputText
+        id="iso2Code"
+        [(ngModel)]="Country.iso2Code"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.iso2Code"
+        >iso2Code Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="iso3Code">Iso3Code</label>
+      <input
+        type="text"
+        class="form-control"  maxlength="2"
+        pInputText
+        id="iso3Code"
+        [(ngModel)]="Country.iso3Code"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Country.iso3Code"
+        >iso3Code is required.</small
+      >
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="Cancel_Clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Ok"
+      icon="pi pi-check"
+      class="p-button-text btn-sm"
+      (click)="Ok_Clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

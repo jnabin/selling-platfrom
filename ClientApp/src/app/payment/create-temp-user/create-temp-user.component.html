@@ -1,0 +1,41 @@
+<p-toast></p-toast>
+
+<br/>
+
+<ng-container *ngIf="tempUserCreated===false">
+  You need to <a href="javascript:void(0)" routerLink="/checkout"> login </a> to purchase a subscription.
+
+  In case you are not registered with us then we can register you quickly with your email id and help you with the purchase.
+
+  <form [formGroup]="tempUserForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <!--<label for="Email">Email</label>-->
+          <input class="form-control" placeholder="Email" type="text" maxlength="30" formControlName="Email" name="Email">
+          <div class="error text-danger" *ngIf="tempUserForm.controls.Email.errors?.required && tempUserForm.controls.Email.touched">
+            Please enter email
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="nav-link btn btn-primary" type="submit"
+            style="font-size: 10px;margin-top:8px;border-radius: 20px;">
+      Continue
+    </button>
+
+  </form>
+</ng-container>
+  <ng-container *ngIf="tempUserCreated">
+    <div>
+      <br />
+      An email has been sent to you at <b>{{tempUserForm.get('Email').value}}</b> with a password.
+      Kindly <a href="javascript:void(0)" routerLink="/checkout"> login </a> with the email and provided password to purchase a subscription.
+      <br />Please check you spam folder for the email, in case it is tagged as spam.
+    </div>
+  </ng-container>

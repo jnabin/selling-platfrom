@@ -1,0 +1,33 @@
+<div class="header-wrapper">
+  <!-- <div class="container"> -->
+    <p-menubar [model]="items" class="top-menu">
+      <ng-template pTemplate="start">
+        <div class="brand-logo mr-4">
+          <img src="assets/images/logo.png" height="60" class="mr-2 py-2">
+        </div>
+      </ng-template>
+      <div>
+        <!-- <input type="text" pInputText placeholder="Search" /> -->
+        <div *ngIf="!IsUserLoggedIn">
+          <a routerLink="/register"><strong>Register</strong></a> / 
+          <a routerLink="/login"><strong>LogIn</strong></a>
+        </div>
+      <div *ngIf="IsUserLoggedIn">
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="pi pi-user"></i></button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem>Profile</button>
+                <button ngbDropdownItem>Change Password</button>
+                <button ngbDropdownItem (click)="loggedOut()">Logout</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+      </div>
+    
+    
+    </p-menubar>
+</div>

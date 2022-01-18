@@ -1,0 +1,143 @@
+
+<section class="section-padding">
+  <div class="row mx-0 align-items-center">
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-right" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'Xatocode')">
+          <img src="assets/images/home/Xatocode.PNG" alt="Xatocode image" class="img-fluid" />
+        </a>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-left" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">
+          World's first magical tool for Excel Macro Automation with Standardization
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center flex-column-reverse flex-lg-row">
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-right" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">
+          Know a compliance score of your Excel VBA code
+        </h2>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-left" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'CodeReview')">
+          <img src="assets/images/home/Code_Review.PNG" alt="code review" class="img-fluid" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center">
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-right" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'CodeTreeView')">
+          <img src="assets/images/home/Code Tree View.PNG" alt="Code Tree View" class="img-fluid" />
+        </a>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-left" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">View and navigate your code in a tree view format</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center flex-column-reverse flex-lg-row">
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-right" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">Download tested well featured modules and procedures in your VBA code</h2>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-left" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'CodeRepository')">
+          <img src="assets/images/home/Code_Repository.PNG" alt="Code Repository" class="img-fluid" />
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center">
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-right" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'CodeSearch')">
+          <img src="assets/images/home/Code_Search.PNG" alt="Code Search" class="img-fluid" />
+        </a>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-left" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">
+          Search through with code in a more customizable way
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center flex-column-reverse flex-lg-row">
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-right" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">
+          View any delimited expression in a rich way
+        </h2>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-left" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'ExpressionViewer')">
+          <img src="assets/images/home/Expression_Viewer.PNG" alt="Expression Viewer" class="img-fluid" />
+        </a>      
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center">
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-right" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'CustomizeCodingStandard')">
+          <img src="assets/images/home/Customize_Coding_Standard.PNG" alt="Customize Coding Standard" class="img-fluid" />
+        </a>      
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-left" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">Customize coding standards for your organization</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row mx-0 row-margin-top align-items-center flex-column-reverse flex-lg-row">
+    <div class="col-12 col-lg-4">
+      <div data-aos="fade-right" data-aos-delay="400" class="prodiict-details-warpper">
+        <h2 class="product-title">
+          Manage Code Repository and add you own component, modules and functions
+        </h2>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div data-aos="fade-left" data-aos-delay="400" class="product-img">
+        <a (click)="open(content, 'ManageCodeRepository')">
+          <img src="assets/images/home/Manage_Code_Repository.PNG" alt="Manage Code Repository" class="img-fluid" />
+        </a>        
+      </div>
+    </div>
+  </div>
+  <button pButton type="button" label="Buy Now" [routerLink]="['/create-temp-user']"></button>
+</section>
+
+<ng-template #content let-modal>
+  <div class="modal-body text-center p-0 modal-content" (click)="modal.dismiss('Cross click')">
+    <img *ngIf="validatePhotoIdentifier('Xatocode')" src="../../assets/images/home/Xatocode.PNG" alt="Xatocode">
+    <img *ngIf="validatePhotoIdentifier('CodeTreeView')" src="../../assets/images/home/Code Tree View.PNG" alt="Code Tree View">
+    <img *ngIf="validatePhotoIdentifier('CodeRepository')" src="../../assets/images/home/Code_Repository.PNG" alt="Code Repository">
+    <img *ngIf="validatePhotoIdentifier('CodeReview')" src="../../assets/images/home/Code_Review.PNG" alt="Code Review">
+    <img *ngIf="validatePhotoIdentifier('CodeSearch')" src="../../assets/images/home/Code_Search.PNG" alt="Code Search">
+    <img *ngIf="validatePhotoIdentifier('CustomizeCodingStandard')" src="../../assets/images/home/Customize_Coding_Standard.PNG" alt="Customize Coding Standard">
+    <img *ngIf="validatePhotoIdentifier('ExpressionViewer')" src="../../assets/images/home/Expression_Viewer.PNG" alt="Expression Viewer">
+    <img *ngIf="validatePhotoIdentifier('ManageCodeRepository')" src="../../assets/images/home/Manage_Code_Repository.PNG" alt="Manage Code Repository">
+  </div>
+</ng-template>
+
+
+
+

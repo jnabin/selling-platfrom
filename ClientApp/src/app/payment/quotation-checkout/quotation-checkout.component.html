@@ -1,0 +1,217 @@
+<p-toast></p-toast>
+<div class="page-title bg-1">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="block text-center">
+          <span class="text-white">Billing</span>
+          <h1 class="text-capitalize mb-4 text-lg">Place Your Order</h1>
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a href="javascript:void(0)" routerLink="/website/home" class="text-white">Home</a>
+            </li>
+            <li class="list-inline-item"><span class="text-white">/</span></li>
+            <li class="list-inline-item">
+              <a href="#" class="text-white-50">Order</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="padding-top: 30PX;">
+  <div class="container">
+    <div class="row mb-5">
+
+      <div class="col-md-6">
+        <div class="uc-section-header font-size-12px mb-3" data-v-8b79579c="">
+          Customer Details
+        </div>
+        <div class="card px-3 py-4">
+
+          <!-- <div *ngIf="!isLoggedIn">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Enter Email</label>
+            <input class="form-control"  placeholder="Email" type="text" maxlength="30"
+            [(ngModel)]="email"  name="email">
+        </div>
+
+      <button class="nav-link btn btn-primary"  (click)="isEmailExist()" style="font-size: 10px;margin-top:8px;border-radius: 20px;" type="submit">Register</button>
+    </div> -->
+
+
+
+          <form [formGroup]="form" (ngSubmit)="createOrder(form)" *ngIf="isLoggedIn" novalidate>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group p-custom-input">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText formControlName="CustomerName" name="CustomerName" autocomplete="off">
+                    <label for="float-input">Customer Name</label>
+                  </span>
+
+                </div>
+
+                <!--<div class="form-group">
+            <label for="exampleInputEmail1">Full Name</label>
+            <input class="form-control" placeholder="First Name" type="text" maxlength="30"
+                   formControlName="FirstName" name="FirstName">
+            <div class="error text-danger" *ngIf="f.FirstName.errors?.required && f.FirstName.touched">
+              First Name is required
+            </div>
+          </div>-->
+              </div>
+              <!--<div class="col-md-6">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Last Name</label>
+            <input class="form-control" placeholder="Last Name" type="text" maxlength="30"
+                   formControlName="LastName" name="LastName">
+            <div class="error text-danger" *ngIf="f.LastName.errors?.required && f.LastName.touched">
+              Last Name is required
+            </div>
+          </div>
+        </div>-->
+            </div>
+            <div class="form-group p-custom-input">
+              <span class="p-float-label">
+                <input id="float-input" type="text" pInputText maxlength="40" formControlName="AddressLine1" name="AddressLine1" autocomplete="off" >
+                <label for="float-input">Address Line 1</label>
+              </span>
+            </div>
+            <div class="form-group p-custom-input">
+              <span class="p-float-label">
+                <input id="float-input" type="text" pInputText maxlength="40" formControlName="AddressLine2" name="AddressLine2" autocomplete="off">
+                <label for="float-input">Address Line 2</label>
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!--<div class="form-group">
+            <label for="exampleInputEmail1">Postal Code</label>
+            <input class="form-control" placeholder="Postal Code" type="text" maxlength="30" formControlName="PostalCode" name="PostalCode">
+          </div>-->
+                <div class="form-group p-custom-input">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText maxlength="10" formControlName="PostalCode" name="PostalCode" autocomplete="off">
+                    <label for="float-input">PostalCode</label>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <!--<div class="form-group">
+            <label for="exampleInputEmail1">City</label>
+            <input class="form-control" placeholder="City" type="text" maxlength="30" formControlName="City" name="City">
+          </div>-->
+                <div class="form-group p-custom-input">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText maxlength="30" formControlName="City" name="City" autocomplete="off">
+                    <label for="float-input">City</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group p-custom-input">
+                  <select class="form-control" id="countrySelect" placeholder="Country" [ngModelOptions]="{standalone: true}" formControlName="Country" (change)="calculatePrice($event.target.value)">
+                    <option value="0" selected disabled>Please select country</option>
+                    <option disabled *ngFor="let country of country" [ngValue]="country.iso2Code">{{country?.countryName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group p-custom-input">
+                  <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText maxlength="30" formControlName="Phone" name="Phone" autocomplete="off">
+                    <label for="float-input">Phone</label>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--</div>-->
+            <!--<div class="form-group">
+        <label for="exampleInputEmail1">Address</label>
+        <input class="form-control" placeholder="Address" type="text" maxlength="30" formControlName="Address1" name="Address">
+      </div>-->
+
+            <div class="d-flex align-items-center">
+            <button type="reset" style="display: none;">Reset</button>
+            <button class="nav-link btn btn-primary" type="submit"
+                    style="font-size: 14px;margin-top:8px;border-radius: 20px;">
+              Pay
+            </button>
+            <p class="tc-text mb-0">You Can Read Our <a href="javascript:void(0);"> Terms and Conditions</a> </p>
+
+            </div>
+            <!-- <button class="nav-link btn btn-primary"  type="submit" [disabled]="form.invalid" style="font-size: 10px;margin-top:8px;border-radius: 20px;" type="submit">Continue to verification</button> -->
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="uc-section-header font-size-12px mb-3" data-v-8b79579c="">
+          Your order
+        </div>
+        <div class="card" style="text-align:justify;">
+          <div class="card-body checkout-details pt-0">
+            <!-- <img src="https://wwwimages.Xatocode.com/content/dam/acom/one-console/icons_rebrand/cc_appicon.svg" alt="Creative Cloud All Apps" data-qe-id="product-icon" style="height: 30px;width: 30px;display:inline;" class="product-icon">-->
+            <!-- <h5 class="card-title" style="margin-left: 8px;display:inline;">XotoCode</h5>-->
+            <br>
+            <div class="form-group">
+              <label>Product Name</label>
+              <input class="form-control" readonly type="text" value="{{calculatedQuotationDetails?.productName}}">
+            </div>
+            <div class="form-group">
+              <label>Product Quantity</label>
+              <input class="form-control" readonly type="text" value="{{calculatedQuotationDetails?.quantity}}">
+            </div>
+
+            <!--<div class="form-group">
+              <select class="form-control" placeholder="Country" [(ngModel)]="iso2CountryCode" name="iso2CountryCode" (change)="calculatePrice(false)">
+                <option value="0" selected disabled>Please select country</option>
+                <option *ngFor="let country of country" [ngValue]="country.iso2Code">{{country?.countryName}}</option>
+              </select>
+            </div>-->
+            <div class="row bill-area">
+              <div class="col-md-3">
+                <h5>Total</h5>
+              </div>
+              <div class="col-md-9">
+                <h5 style="text-align: end;">${{ calculatedQuotationDetails?.total1USD }}</h5>
+              </div>
+            </div>
+            <div class="row bill-area">
+              <div class="col-md-5">
+                <h5>Discount%</h5>
+              </div>
+              <div class="col-md-7">
+                <h5 style="text-align: end;">{{calculatedQuotationDetails?.totalDiscount }}%</h5>
+              </div>
+            </div>
+            <div *ngIf="isIndian" class="row bill-area">
+              <div class="col-md-3">
+                <h5>Tax</h5>
+              </div>
+              <div class="col-md-9">
+                <h5 style="text-align: end;">{{calculatedQuotationDetails?.gstPercent }}% </h5>
+              </div>
+            </div>
+            <div class="row bill-area">
+              <div class="col-md-3">
+                <h5>Grand Total</h5>
+              </div>
+              <div class="col-md-9">
+                <h5 style="text-align: end;">
+                  ${{ calculatedQuotationDetails?.grandTotalUSD }}
+                  ({{calculatedQuotationDetails?.localToUSDMuiltiplier * calculatedQuotationDetails?.grandTotalUSD | number : '1.0-0' }}  {{calculatedQuotationDetails?.localCurrencyCode}} approx.)
+                </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

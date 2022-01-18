@@ -1,0 +1,322 @@
+<p-toast></p-toast>
+
+<p-table #dt
+         [value]="Quotations"
+         [loading]="loading"
+         [paginator]="true"
+         [rows]="rows"
+         [showCurrentPageReport]="true"
+         [(first)]="first"
+         responsiveLayout="scroll"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+         [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+         [globalFilterFields]="displayedColumns">
+
+  <ng-template pTemplate="caption">
+    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between">
+      <button pButton
+              pRipple
+              label="New"
+              icon="pi pi-plus"
+              class="p-button-success mr-2 mr-2 d-none d-md-block"
+              (click)="New_Clicked()"></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Quotations</h5>
+
+      <div class="d-flex  c-w-100">
+        <!--<button pButton pRipple  label="New2" icon="pi pi-trash" class="d-block d-md-none p-button-success mr-2" (click)="New_Clicked()"></button>-->
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText
+                 type="text"
+                 class="form-control search-control p-inputtext"
+                 (input)="dt.filterGlobal($event.target.value, 'contains')"
+                 placeholder="Search..." />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="orderId">
+        OrderId <p-sortIcon field="orderId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="iso2Code">
+        iso2Code <p-sortIcon field="iso2Code"></p-sortIcon>
+      </th>
+      <th pSortableColumn="product">
+        product <p-sortIcon field="product"></p-sortIcon>
+      </th>
+      <th pSortableColumn="subscriptionType">
+        SubscriptionType <p-sortIcon field="subscriptionType"></p-sortIcon>
+      </th>
+      <th pSortableColumn="priceUSD">
+        priceUSD<p-sortIcon field="priceUSD"></p-sortIcon>
+      </th>
+      <th pSortableColumn="discountPercent">
+        discountPercent <p-sortIcon field="discountPercent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="grandTotalUSD">
+        grandTotalUSD <p-sortIcon field="grandTotalUSD"></p-sortIcon>
+      </th>
+      <th pSortableColumn="createdDateUTC">
+        createdDateUTC <p-sortIcon field="createdDateUTC"></p-sortIcon>
+      </th>
+      <th pSortableColumn="isActive">
+        Active <p-sortIcon field="isActive"></p-sortIcon>
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.orderId}}</td>
+      <td>{{ item.iso2Code}}</td>
+      <td>{{ item.product }}</td>
+      <td>{{ item.subscriptionType }}</td>
+      <td>{{ item.priceUSD}}</td>
+      <td>{{ item.discountPercent }}</td>
+      <td>{{ item.grandTotalUSD}}</td>
+      <td>{{ item.createdDateUTC}}</td>
+      <td>{{ item.isActive}}</td>
+      <td>
+        <button pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="Edit_Clicked(item)"></button>
+        <!--<button pButton
+                pRipple
+                pTooltip="Enter your username"
+                tooltipPosition="left" placeholder="Left"
+                id="deactivate"
+                icon="pi pi-lock"
+                class="p-button-rounded p-button-warning p-button-trash"
+                (click)="Deactivate_Clicked(item)"></button>-->
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="showDialog"
+          [style]="{ width: '450px' }"
+          header="Quotation"
+          [modal]="true"
+          styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <!--<div class="p-field">
+    <label for="name">iso2Code</label>
+    <input type="text"
+           class="form-control"
+           pTooltip="testtip"
+           pInputText
+           [readonly]="Quotation.quotationId>0"
+           id="iso2Code"
+           [(ngModel)]="Quotation.iso2Code"
+           required
+           autofocus />
+  </div>-->
+
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input type="text"
+             class="form-control"
+             pInputText
+             [readonly]="isEditClicked"
+             id="email"
+             [(ngModel)]="Quotation.email"
+             required
+             autofocus />
+      <small class="p-invalid text-danger" *ngIf="submitted && !Quotation.email">Email is required.</small>
+    </div>
+
+    <!--<div class="p-field">
+    <label for="contact">ProductSubscriptionTypeId</label>
+    <input type="text"
+           class="form-control"
+           pInputText
+           [readonly]="Quotation.quotationId>0"
+           id="productSubscriptionTypeId"
+           [(ngModel)]="Quotation.productSubscriptionTypeId"
+           required
+           autofocus />
+    <small class="p-invalid text-danger" *ngIf="submitted && !Quotation.productSubscriptionTypeId">productSubscriptionTypeId is required.</small>
+  </div>-->
+    <!--<div class="p-field">
+    <label for="contact">ProductSubscriptionTypeId</label>
+    <p-dropdown [options]="ProductSubscriptionTypes" [(ngModel)]="selectedProductSubscriptionType" placeholder="Product Subscription Type"
+                optionLabel="name" [showClear]="true" (change)="getPriceDetail()"></p-dropdown>
+    <small class="p-invalid text-danger" *ngIf="submitted && !selectedProductSubscriptionType">productSubscriptionTypeId is required.</small>
+  </div>-->
+
+    <div class="form-group">
+      <label for="ProductSubscriptionType">Product & SubscriptionType</label>
+      <select class="form-control" placeholder="ProductSubscriptionType" [(ngModel)]="selectedProductSubscriptionType"
+              name="selectedProductSubscriptionType"
+              
+              (change)="getPriceDetail()">
+        <option *ngFor="let item of AllProductSubscriptionTypes" [ngValue]="item"
+                [selected]="Quotation.productSubscriptionTypeId===item.productSubscriptionTypeId"
+                >{{item.product + ' ' + item.subscriptionType}}</option>
+      </select>
+    </div>
+
+    <div class="p-field">
+      <label for="priceUSD">Price(USD)</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="true"
+             pInputText
+             id="priceUSD"
+             [(ngModel)]="selectedProductSubscriptionType.priceUSD"red
+             autofocus />
+    </div>
+
+    <div class="form-group">
+      <label for="contact">Country</label>
+      <select class="form-control" placeholder="Country" [(ngModel)]="selecedcountry" name="selecedcountry" (change)="getPriceDetail()">
+        <option *ngFor="let country of AllCountries" [ngValue]="country.iso2Code">{{country?.countryName}}</option>
+      </select>
+    </div>
+
+
+    <div class="p-field">
+      <label for="quantity">Quantity</label>
+      <input type="text"
+             class="form-control"
+             pInputText
+             [readonly]="isEditClicked"
+             id="quantity"
+             [(ngModel)]="Quotation.quantity"
+             (change)="getPriceDetail()"
+             required
+             autofocus />
+      <small class="p-invalid text-danger" 
+             requi*ngIf="submitted && !Quotation.quantity">Quantity is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="discountPercent">Discount(%)</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="isEditClicked"
+             pInputText
+             id="discountPercent"
+             [(ngModel)]="Quotation.discountPercent"
+             (change)="getPriceDetail()"
+             required
+             autofocus />
+      <small class="p-invalid text-danger" *ngIf="submitted && !Quotation.discountPercent">Discount(%) is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="specialDiscountPercent">Special Discount(%) Normal</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="true"
+             pInputText
+             id="specialDiscountPercent"
+             [(ngModel)]="calculatedOrderDetail.specialDiscountPercent"
+             required
+             autofocus />
+    </div>
+
+    <div class="p-field">
+      <label for="gstPercent">GST(%)</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="true"
+             pInputText
+             id="gstPercent"
+             [(ngModel)]="calculatedOrderDetail.gstPercent"
+             required
+             autofocus />
+    </div>
+
+    <div class="p-field">
+      <label for="gstValue">GST Value</label>
+      <input type="text"
+             class="form-control"
+             pInputText
+             id="gstValue"
+             [(ngModel)]="calculatedOrderDetail.gstValue"
+             required
+             [readonly]="true"
+             autofocus />
+    </div>
+
+    <div class="p-field">
+      <label for="grandTotalUSD">Grand Total(USD) Normal</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="true"
+             pInputText
+             id="grandTotalUSD"
+             [(ngModel)]="calculatedOrderDetail.grandTotalUSD"
+             required
+             autofocus />
+    </div>
+
+    <!--<div class="p-field">
+    <label for="contact">Discount(%) Quotation</label>
+    <input type="text"
+           class="form-control"
+           [readonly]="true"
+           pInputText
+           id="discountPercent"
+           [(ngModel)]="calculatedQuotationDetail.discountPercent"
+           (change)="getPriceDetail()"
+           required
+           autofocus />
+  </div>-->
+
+    <div class="p-field">
+      <label for="contact">Grand Total(USD) Quotation</label>
+      <input type="text"
+             class="form-control"
+             [readonly]="true"
+             pInputText
+             id="grandTotalUSD"
+             [(ngModel)]="calculatedQuotationDetail.grandTotalUSD"
+             required
+             autofocus />
+    </div>
+
+    <div class="p-col-12 md-3" *ngIf="isEditClicked">
+      <br />
+      <div class="p-field-checkbox">
+        <p-checkbox [(ngModel)]="Quotation.isActive" [binary]="true"></p-checkbox>
+        <label class="mb-0 ml-2" for="Quotation.isActive">Active</label>
+      </div>
+    </div>
+
+    <div class="p-field">
+      <label for="description">Internal Comment</label>
+      <textarea id="internalComment"
+                class="form-control"
+                pInputTextarea
+                [(ngModel)]="Quotation.internalComment"
+                required
+                rows="5"
+                cols="30">
+      </textarea>
+      <small class="p-invalid text-danger" *ngIf="submitted && !Quotation.internalComment">Internal-Comment is required.</small>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-text btn-sm"
+            (click)="Cancel_Clicked()"></button>
+    <button pButton
+            pRipple
+            label="Save"
+            icon="pi pi-check"
+            class="p-button-text btn-sm"
+            (click)="Ok_Clicked()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

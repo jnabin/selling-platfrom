@@ -1,0 +1,170 @@
+<p-toast></p-toast>
+
+<div class="row" style="margin-bottom: 15px">
+  <div class="col-md-12">
+    <p-table
+      #dt
+      [value]="getAllFiles"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="rows"
+      [showCurrentPageReport]="true"
+      [(first)]="first"
+      responsiveLayout="scroll"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+      [globalFilterFields]="displayedColumnsforfiles"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>image</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-files>
+        <tr>
+          <td>{{ files.id }}</td>
+          <td>{{ files.fileName }}</td>
+          <td>
+            <img
+              width="50px"
+              height="50px"
+              src="data:image/jpeg;base64,{{ files.binaryContent }}"
+            />
+            <!-- <image src="{{" files.binaryContent }}></image> -->
+          </td>
+
+          <td>
+            <button
+              pButton
+              pRipple
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-warning"
+              (click)="delete_file_clicked(files)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="col-md-3">
+    <input
+      type="file"
+      class="file-input"
+      #file
+      style="display: none"
+      placeholder="choose file"
+      (change)="onFileUpload(file.files)"
+      (click)="(onFileClick)"
+    />
+    <button type="button" class="btn-success" (click)="file.click()">
+      Upload File
+    </button>
+  </div>
+  <div class="col-md-4">
+    <span class="upload" *ngIf="progress > 0"> {{ progress }} % </span>
+    <span class="upload" *ngIf="message">
+      {{ message }}
+    </span>
+  </div>
+</div>
+<p-fileUpload
+  #fubauto
+  mode="basic"
+  name="files[]"
+  accept="image/*"
+  (onUpload)="onFileUpload($event)"
+  [auto]="true"
+  chooseLabel="Browse"
+></p-fileUpload>
+<div *ngIf="entity">
+  <div class="p-field">
+    <label for="parentId">Parent Id</label>
+    <select class="form-control"
+            placeholder="Select parent"
+            id="parentId"
+                name="parentId"
+            [(ngModel)]="entity.parentId"
+            >
+    <!--  <option value="0" selected disabled>Please select level</option>-->
+      <option *ngFor="let item of entitiesLvel"
+              value="{{ item.id}}"
+              >
+        {{ item.name }}
+      </option>
+    </select>
+    <!--<p-dropdown
+    [options]="entities"
+    [(ngModel)]="entity.parentId"
+    optionLabel="extendName"
+    optionValue="id"
+    placeholder="Select parent"
+  ></p-dropdown>-->
+  </div>
+  <div class="p-field">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      pInputText
+      id="name"
+      [(ngModel)]="entity.name"
+      required
+      autofocus
+    />
+    <small class="p-invalid text-danger" *ngIf="submitted && !entity.name"
+      >Name is required.</small
+    >
+  </div>
+  <div class="p-field">
+    <label for="htmlContent">HtmlContent</label>
+    <textarea
+      id="htmlContent"
+      class="form-control"
+      pInputTextarea
+      [(ngModel)]="entity.htmlContent"
+      required
+      rows="15"
+      cols="200"
+    ></textarea>
+    <small class="p-invalid text-danger" *ngIf="submitted && !entity.htmlContent"
+      >HtmlContent is required.</small
+    >
+  </div>
+  <div class="p-field-checkbox">
+    <label for="IsActive">IsActive</label>
+    <p-checkbox
+      name="group1"
+      value="Active"
+      inputId="isActive"
+      [(ngModel)]="entity.isActive"
+      [binary]="true"
+    ></p-checkbox>
+    <small class="p-invalid text-danger" *ngIf="submitted && !entity.isActive"
+      >IsActive is required.</small
+    >
+  </div>
+</div>
+
+<div>
+  <button
+    pButton
+    pRipple
+    label="Cancel"
+    icon="pi pi-times"
+    class="p-button-text btn-sm"
+    (click)="cancel_clicked()"
+  ></button>
+  <button
+    pButton
+    pRipple
+    label="Save"
+    icon="pi pi-check"
+    class="p-button-text btn-sm"
+    (click)="submit_clicked()"
+  ></button>
+</div>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

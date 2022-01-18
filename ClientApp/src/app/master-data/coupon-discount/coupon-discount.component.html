@@ -1,0 +1,288 @@
+<p-toast></p-toast>
+<p-table
+  #dt
+  [value]="CouponDiscounts"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+  [globalFilterFields]="displayedColumns"
+>
+  <ng-template pTemplate="caption">
+    <div
+      class="
+        d-flex
+        align-items-center
+        flex-column flex-md-row
+        justify-content-between
+      "
+    >
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2 d-none d-md-block"
+        (click)="New_Clicked()"
+      ></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Coupon Discount</h5>
+      <div class="d-flex justify-content-between c-w-100">
+        <button
+          pButton
+          pRipple
+          label="New2"
+          icon="pi pi-plus"
+          class="p-button-success mr-2 d-block d-md-none"
+          (click)="New_Clicked()"
+        ></button>
+
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="form-control search-control p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="couponDiscountId">
+        Coupon Discount Id
+        <p-sortIcon field="couponDiscountId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="couponCode">
+        Coupon Code
+        <p-sortIcon field="couponCode"></p-sortIcon>
+      </th>
+      <th pSortableColumn="discountMessage">
+        Discount Message
+        <p-sortIcon field="discountMessage"></p-sortIcon>
+      </th>
+      <th pSortableColumn="discountPercent">
+        Discount Percent
+        <p-sortIcon field="discountPercent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="usageLimit">
+        Usage Limit
+        <p-sortIcon field="usageLimit"></p-sortIcon>
+      </th>
+      <th pSortableColumn="startDateUTC">
+        Start Date
+        <p-sortIcon field="startDateUTC"></p-sortIcon>
+      </th>
+      <th pSortableColumn="endDateUTC">
+        End Date
+        <p-sortIcon field="endDateUTC"></p-sortIcon>
+      </th>
+      <th pSortableColumn="productId">
+        Product Id
+        <p-sortIcon field="productId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="productSubscriptionTypeId">
+        Product Subscription Type Id
+        <p-sortIcon field="productSubscriptionTypeId"></p-sortIcon>
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.couponDiscountId }}</td>
+      <td>{{ item.couponCode }}</td>
+      <td>{{ item.discountMessage }}</td>
+      <td>{{ item.discountPercent }}</td>
+      <td>{{ item.usageLimit }}</td>
+      <td>{{ item.startDateUTC | date }}</td>
+      <td>{{ item.endDateUTC | date }}</td>
+      <td>{{ item.productId }}</td>
+      <td>{{ item.productSubscriptionTypeId }}</td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="Edit_Clicked(item)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning p-button-trash"
+          (click)="Delete_Clicked(item)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '560px', height: '588PX' }"
+  header="Coupen Discount"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <div class="p-field">
+        <label for="Name">Product</label>
+        <p-dropdown
+          [options]="products"
+          [(ngModel)]="CouponDiscount.productId"
+          optionLabel="name"
+          optionValue="productId"
+          placeholder="Select Product"
+        ></p-dropdown>
+        <small
+          class="p-invalid text-danger"
+          *ngIf="submitted && !CouponDiscount.productId"
+          >productId is required.</small
+        >
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="subscriptionTypeId">Subscription Type</label>
+      <p-dropdown
+        [options]="SubscriptionType"
+        [(ngModel)]="CouponDiscount.productsubscriptionTypeId"
+        optionLabel="description"
+        optionValue="subscriptionTypeId"
+        placeholder="Select Subscription Type"
+      ></p-dropdown>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.productsubscriptionTypeId"
+        >Subscription Type is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="icon">Start Date</label>
+      <p-calendar
+        [(ngModel)]="CouponDiscount.startDateUTC"
+        [showIcon]="true"
+        inputId="icon"
+        [minDate]="tomorrow"
+        (onSelect)="onBlurMethod($event)"
+      ></p-calendar>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.startDateUTC"
+        >Start Date is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="icon">End Date</label>
+      <p-calendar
+        [(ngModel)]="CouponDiscount.endDateUTC"
+        [showIcon]="true"
+        [minDate]="minDate"
+        inputId="icon"
+      ></p-calendar>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.endDateUTC"
+        >End Date is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="name">Coupon Code</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="couponCode"
+        [(ngModel)]="CouponDiscount.couponCode"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.couponCode"
+        >Coupon Code is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="name">Usage Limit</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="usageLimit"
+        [(ngModel)]="CouponDiscount.usageLimit"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.usageLimit"
+        >Usage Limit is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="discountPercent">Discount Percent</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="discountPercent"
+        [(ngModel)]="CouponDiscount.discountPercent"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.discountPercent"
+        >Discount Percent is required.</small
+      >
+    </div>
+
+    <div class="p-field">
+      <label for="discountMessage">Discount Message</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="discountMessage"
+        [(ngModel)]="CouponDiscount.discountMessage"
+        required
+        autofocus
+      />
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !CouponDiscount.discountMessage"
+        >Discount Message is required.</small
+      >
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="Cancel_Clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Ok"
+      icon="pi pi-check"
+      class="p-button-text btn-sm"
+      (click)="Ok_Clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

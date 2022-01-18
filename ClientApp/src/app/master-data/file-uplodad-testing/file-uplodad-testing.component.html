@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 6%; padding-bottom: 12%">
+  <form class="needs-validation">
+    <div class="form-group">
+      <label for="picture">Image</label>
+      <div class="custom-file">
+        <input
+          type="file"
+          class="custom-file-input"
+          id="customFile"
+          (change)="onFileChanged($event)"
+          accept=".jpg,.png,.jpeg"
+        />
+        <label class="custom-file-label" #labelImport for="customFile"
+          >Choose file</label
+        >
+      </div>
+    </div>
+    <input
+      type="button"
+      value="Submit"
+      (click)="onSubmit()"
+      [disabled]="profileForm.invalid"
+      class="btn btn-primary"
+    />
+  </form>
+</div>
+
+<div [innerHTML]="htmlContent"></div>

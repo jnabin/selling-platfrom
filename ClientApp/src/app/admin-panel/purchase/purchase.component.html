@@ -1,0 +1,50 @@
+<!-- 
+        <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+            <h4 class="p-1">My Liscense</h4> 
+        </div>
+        <div class="p-2 table_font_size table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger] = "dtTrigger" style="width: 100% !important" class="dt-width table table-striped table-hover table-condensed">
+                <thead> 
+                  <tr>
+                    <th class="hide-content">ID</th>
+                    <th>License Key</th>
+                    <th>Count of Machines</th>
+                    <th>Subscription Type</th>
+                    <th>Expiry Date</th>
+                    <th>License Key</th>
+                    <th>Count of Machines</th>
+                    <th>Subscription Type</th>
+                    <th>Expiry Date</th>
+                    <th>License Key</th>
+                    <th>Count of Machines</th>
+                    <th>Subscription Type</th>
+                    <th>Expiry Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of data" (click)="verifyDetail(d)">
+                    <td class="hide-content">{{ d.LicenseId }}</td>
+                    <td>{{d.LicenseKey}}</td>
+                    <td>{{d.LicenseCount}}</td>
+                    <td>Monthly</td>
+                    <td>{{d.SubscriptionEndDate}}</td>
+                    <td>{{d.LicenseKey}}</td>
+                    <td>{{d.LicenseCount}}</td>
+                    <td>Monthly</td>
+                    <td>{{d.SubscriptionEndDate}}</td>
+                    <td>{{d.LicenseKey}}</td>
+                    <td>{{d.LicenseCount}}</td>
+                    <td>Monthly</td>
+                    <td>{{d.SubscriptionEndDate}}</td>
+                    <td>
+                      <button type="button" (click)="verifyDetail(d)"  class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Manage</button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="data?.length == 0">
+                    <td colspan="3" class="no-data-available" *ngIf="data?.length == 0">No data!</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+     -->

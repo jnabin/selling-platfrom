@@ -1,0 +1,178 @@
+<p-toast></p-toast>
+<p-table
+  #dt
+  [value]="Products"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+  [globalFilterFields]="displayedColumns"
+>
+  <ng-template pTemplate="caption">
+    <div
+      class="
+        d-flex
+        align-items-center
+        flex-column flex-md-row
+        justify-content-between
+      "
+    >
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success mr-2 d-none d-md-block"
+        (click)="New_Clicked()"
+      ></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Products</h5>
+      <div class="d-flex justify-content-between c-w-100">
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2 d-block d-md-none"
+          (click)="New_Clicked()"
+        ></button>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="form-control search-control p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="productId">
+        Product ID
+        <p-sortIcon field="productId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Name
+        <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="description">
+        Description
+        <p-sortIcon field="description"></p-sortIcon>
+      </th>
+      <th pSortableColumn="isActive">
+        isActive
+        <p-sortIcon field="isActive"></p-sortIcon>
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.productId }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.description }}</td>
+      <td *ngIf="item.isActive">
+        <svg height="30" width="30">
+          <circle cx="15" cy="15" r="8" stroke-width="3" fill="green" />
+        </svg>
+      </td>
+      <td *ngIf="!item.isActive">
+        <svg height="30" width="30">
+          <circle cx="15" cy="15" r="8" stroke-width="3" fill="red" />
+        </svg>
+      </td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          (click)="Edit_Clicked(item)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning p-button-trash"
+          (click)="Delete_Clicked(item)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '450px' }"
+  header="Product Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="name"
+        [(ngModel)]="Product.name"
+        maxlength="32"
+        required
+        autofocus
+      />
+      <small class="p-invalid text-danger" *ngIf="submitted && !Product.name"
+        >Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        pInputTextarea
+        [(ngModel)]="Product.description"
+        maxlength="255"
+        required
+        rows="3"
+        cols="20"
+      ></textarea>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !Product.description"
+        >Description is required.</small
+      >
+      <small for="vol" *ngIf="Product && Product.description"
+        >Volume ({{ Product.description.length }}/255)</small
+      >
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="Cancel_Clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Ok"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="Ok_Clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

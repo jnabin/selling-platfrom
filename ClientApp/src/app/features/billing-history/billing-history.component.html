@@ -1,0 +1,159 @@
+<div class="page-title border-bottom pb-2">
+    Billing History
+</div>
+
+<p-toast></p-toast>
+
+<p-table
+  #dt
+  [value]="GetAllOrder"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+  [globalFilterFields]="displayedColumns"
+>
+  <ng-template pTemplate="caption">
+    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between">
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Order</h5>
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          class="form-control search-control p-inputtext"
+          (input)="dt.filterGlobal($event.target.value, 'contains')"
+          placeholder="Search..."
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+       <th pSortableColumn="orderId">
+        orderId <p-sortIcon field="orderId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="quotationId">
+        quotationId <p-sortIcon field="quotationId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="appUserId">
+        appUserId
+        <p-sortIcon field="appUserId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="paymentMethodId">
+        paymentMethodId <p-sortIcon field="paymentMethodId"></p-sortIcon>
+      </th>
+       <th pSortableColumn="productSubscriptionTypeId">
+        productSubscriptionTypeId <p-sortIcon field="productSubscriptionTypeId"></p-sortIcon>
+      </th>
+       <th pSortableColumn="product">
+        product <p-sortIcon field="product"></p-sortIcon>
+      </th>
+      <th pSortableColumn="subscriptionType">
+        subscriptionType <p-sortIcon field="subscriptionType"></p-sortIcon>
+      </th>
+       <th pSortableColumn="customerName">
+        customerName <p-sortIcon field="customerName"></p-sortIcon>
+      </th>
+       <th pSortableColumn="phone">
+        phone <p-sortIcon field="phone"></p-sortIcon>
+      </th>
+       <th pSortableColumn="country">
+        country <p-sortIcon field="country"></p-sortIcon>
+      </th>
+      <th pSortableColumn="postCode">
+        postCode <p-sortIcon field="postCode"></p-sortIcon>
+      </th>
+       <th pSortableColumn="address">
+        address <p-sortIcon field="address"></p-sortIcon>
+      </th>
+        <th pSortableColumn="priceUSD">
+        priceUSD <p-sortIcon field="priceUSD"></p-sortIcon>
+      </th>
+      <th pSortableColumn="quantity">
+        quantity <p-sortIcon field="quantity"></p-sortIcon>
+      </th>
+      <th pSortableColumn="localCurrencyCode">
+        localCurrencyCode <p-sortIcon field="localCurrencyCode"></p-sortIcon>
+      </th>
+      <th pSortableColumn="rupeeToUSDMultiplier">
+        rupeeToUSDMultiplier
+        <p-sortIcon field="rupeeToUSDMultiplier"></p-sortIcon>
+      </th>
+      <th pSortableColumn="localToUSDMultiplier">
+        localToUSDMultiplier
+        <p-sortIcon field="localToUSDMultiplier"></p-sortIcon>
+      </th>
+       <th pSortableColumn="specialDiscountId">
+        specialDiscountId
+        <p-sortIcon field="specialDiscountId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="specialDiscountPercent">
+        specialDiscountPercent <p-sortIcon field="specialDiscountPercent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="couponDiscountId">
+        couponDiscountId <p-sortIcon field="couponDiscountId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="couponDiscountPercent">
+        couponDiscountPercent <p-sortIcon field="couponDiscountPercent"></p-sortIcon>
+      </th>
+
+      <th pSortableColumn="quotationDiscountPercent">
+        quotationDiscountPercent <p-sortIcon field="quotationDiscountPercent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="totalDiscountValue">
+        totalDiscountValue <p-sortIcon field="totalDiscountValue"></p-sortIcon>
+      </th>
+       <th pSortableColumn="gstPercent">
+        gstPercent <p-sortIcon field="gstPercent"></p-sortIcon>
+      </th>
+       <th pSortableColumn="gstValue">
+        gstValue <p-sortIcon field="gstValue"></p-sortIcon>
+      </th>
+       <th pSortableColumn="grandTotalUSD">
+        grandTotalUSD <p-sortIcon field="grandTotalUSD"></p-sortIcon>
+      </th>
+       <th pSortableColumn="createdDateUTC">
+        createdDateUTC <p-sortIcon field="createdDateUTC"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-order>
+    <tr>
+      
+     <td>Sl#{{ order.orderId }}</td>
+     <td>{{ order.quotationId }}</td>
+      <td>{{ order.appUserId }}</td>
+      <td>{{ order.paymentMethodId }}</td>
+      <td>{{ order.productSubscriptionTypeId }}</td>
+      <td>{{ order.product }}</td>
+      <td>{{ order.subscriptionType }}</td>
+      <td>{{ order.customerName }}</td>
+      <td>{{ order.phone }}</td>
+      <td>{{ order.country }}</td>
+      <td>{{ order.postCode }}</td>
+      <td>{{ order.address }}</td>
+      <td>${{ order.priceUSD }}</td>
+      <td>{{ order.quantity }}</td>
+      <td>{{ order.localCurrencyCode }}</td>
+      <td>{{ order.rupeeToUSDMultiplier }}</td>
+      <td>{{ order.localToUSDMultiplier }}</td>
+      <td>{{ order.specialDiscountId }}</td>
+      <td>{{ order.specialDiscountPercent }}%</td>
+      <td>{{ order.couponDiscountId }}</td>
+      <td>{{ order.couponDiscountPercent }}%</td>
+      <td>{{ order.quotationDiscountPercent }}%</td>
+      <td>{{ order.totalDiscountValue }}</td>
+      <td>{{ order.gstPercent }}%</td>
+      <td>{{ order.gstValue }}</td>
+      <td>${{ order.grandTotalUSD }}</td>
+      <td>{{ order.createdDateUTC | date:'fullDate'}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

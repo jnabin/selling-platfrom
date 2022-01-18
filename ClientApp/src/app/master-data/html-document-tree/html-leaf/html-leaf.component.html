@@ -1,0 +1,301 @@
+<p-toast></p-toast>
+<!-- <p-toolbar styleClass="mb-4">
+  <ng-template pTemplate="left">
+    <button
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      class="p-button-success mr-2"
+      (click)="new_clicked()"
+    ></button>
+  </ng-template>
+</p-toolbar> -->
+<p-table
+  #dt
+  [value]="entities"
+  [loading]="loading"
+  [paginator]="true"
+  [rows]="rows"
+  [showCurrentPageReport]="true"
+  [(first)]="first"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+  [globalFilterFields]="displayedColumnsforfiles"
+>
+  <ng-template pTemplate="caption">
+    <div class="d-flex align-items-center flex-column flex-md-row justify-content-between">
+      <button
+      pButton
+      pRipple
+      label="New"
+      icon="pi pi-plus"
+      class="p-button-success mr-2 d-none d-md-block"
+      (click)="new_clicked()"
+    ></button>
+      <h5 class="m-0 mb-3 mb-md-0 text-center">Manage Html Leaf</h5>
+      <div class="d-flex justify-content-between c-w-100">
+        <button pButton pRipple label="New" icon="pi pi-plus"
+        class="p-button-success mr-2 d-block d-md-none"
+        (click)="new_clicked()"
+      ></button>
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="form-control p-inputtext"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+      <th pSortableColumn="parentId">
+        ParentId <p-sortIcon field="parentId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="name">
+        Name <p-sortIcon field="name"></p-sortIcon>
+      </th>
+      <th pSortableColumn="htmlContent">
+        HtmlContent <p-sortIcon field="htmlContent"></p-sortIcon>
+      </th>
+      <th pSortableColumn="isActive">
+        Active <p-sortIcon field="isActive"></p-sortIcon>
+      </th>
+      <th><!--Placeholder for Edit/Delete buttons--></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-entity>
+    <tr>
+      <td>{{ entity.id }}</td>
+      <td>{{ entity.parentId }}</td>
+      <td>{{ entity.name }}</td>
+      <td>{{ entity.htmlContent }}</td>
+      <td>{{ entity.isActive }}</td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-success mr-2"
+          [routerLink]="['/master/html-leaf-edit', entity.id]"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-warning"
+          (click)="delete_clicked(entity)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  [(visible)]="isDialogVisible"
+  [style]="{ width: '800px' }"
+  header="Html Leaf"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <div class="row" style="margin-bottom: 15px">
+    <div class="col-md-12">
+      <p-table
+        #dt
+        [value]="getAllFiles"
+        [loading]="loading"
+        [paginator]="true"
+        [rows]="rows"
+        [showCurrentPageReport]="true"
+        [(first)]="first"
+        responsiveLayout="scroll"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+        [globalFilterFields]="displayedColumnsforfiles"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>image</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-files>
+          <tr>
+            <td>{{ files.id }}</td>
+            <td>{{ files.fileName }}</td>
+            <td>
+              <img
+                width="50px"
+                height="50px"
+                src="data:image/jpeg;base64,{{ files.binaryContent }}"
+              />
+              <!-- <image src="{{" files.binaryContent }}></image> -->
+            </td>
+
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning"
+                (click)="delete_file_clicked(files)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="col-md-3">
+      <input
+        type="file"
+        class="file-input"
+        #file
+        style="display: none"
+        placeholder="choose file"
+        (change)="onFileUpload(file.files)"
+        (click)="(onFileClick)"
+      />
+      <button type="button" class="btn-success" (click)="file.click()">
+        Upload File
+      </button>
+    </div>
+    <div class="col-md-4">
+      <span class="upload" *ngIf="progress > 0"> {{ progress }} % </span>
+      <span class="upload" *ngIf="message">
+        {{ message }}
+      </span>
+    </div>
+  </div>
+  <p-fileUpload
+    #fubauto
+    mode="basic"
+    name="files[]"
+    accept="image/*"
+    (onUpload)="onFileUpload($event)"
+    [auto]="true"
+    chooseLabel="Browse"
+  ></p-fileUpload>
+  <ng-template pTemplate="content">
+    <!-- <div class="p-field">
+      <label for="parentId">Parent Id</label>
+      <input
+        type="text"
+        id="parentId"
+        class="form-control"
+        [(ngModel)]="entity.parentId"
+      />
+    </div> -->
+    <div class="p-field">
+      <label for="subscriptionTypeId">Subscription Type</label>
+      <select class="form-control"
+              placeholder="Select parent"
+              [(ngModel)]="entity.parentId">
+        <option value="0" selected disabled>Please select level</option>
+        <option *ngFor="let item of entitiesLvel"
+                [ngValue]="item.id">
+          {{ item.name }}
+        </option>
+      </select>
+      <!--<p-dropdown
+    [options]="entities"
+    [(ngModel)]="entity.parentId"
+    optionLabel="description"
+    optionValue="id"
+    placeholder="Select Subscription Type"
+  ></p-dropdown>-->
+    </div>
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        pInputText
+        id="name"
+        [(ngModel)]="entity.name"
+        required
+        autofocus
+      />
+      <small class="p-invalid text-danger" *ngIf="submitted && !entity.name"
+        >Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+      <label for="htmlContent">HtmlContent</label>
+      <textarea
+        id="htmlContent"
+        class="form-control"
+        pInputTextarea
+        [(ngModel)]="entity.htmlContent"
+        required
+        rows="15"
+        cols="200"
+      ></textarea>
+      <small class="p-invalid text-danger" *ngIf="submitted && !entity.htmlContent"
+        >HtmlContent is required.</small
+      >
+    </div>
+    <!-- <div class="p-field-checkbox">
+        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
+        <label for="ny">New York</label>
+    </div> -->
+    <div class="p-field-checkbox">
+      <label for="IsActive">IsActive</label>
+      <p-checkbox
+        name="group1"
+        value="Active"
+        inputId="isActive"
+        [(ngModel)]="entity.isActive"
+      ></p-checkbox>
+      <small class="p-invalid text-danger" *ngIf="submitted && !entity.isActive"
+        >IsActive is required.</small
+      >
+    </div>
+    <!-- <div class="p-field-checkbox">
+        <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"></p-checkbox>
+        <label for="binary">{{checked}}</label>
+    </div> -->
+
+    <!-- <div class="form-group">
+        <div class="form-control">
+          <label class="checkbox-inline">
+            <input type="checkbox" name="isAccept" ngModel>Accept Terms & Conditions
+          </label>
+        </div>
+    </div> -->
+    <!-- <div class="p-float-label p-field">
+    <input id="float-input" type="text" pInputText
+    [(ngModel)]="entity.parentId" >
+    <label for="float-input">Parent Id</label>
+  </div> -->
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="cancel_clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text btn-sm"
+      (click)="submit_clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

@@ -1,0 +1,11 @@
+<div>
+  <ng-container *ngIf="isActivated">
+    Congratulation your email {{activatedEmail}} is now active. You can log in to your account and explore.
+  </ng-container>
+
+  <ng-container *ngIf="isError">
+    The following error occured during activation:
+
+    {{error}}
+  </ng-container>
+</div>

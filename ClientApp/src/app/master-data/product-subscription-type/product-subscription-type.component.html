@@ -1,0 +1,212 @@
+<p-toast></p-toast>
+
+<div>
+  <p-table
+    #dt
+    [value]="ProductSubscriptionTypes"
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="rows"
+    [showCurrentPageReport]="true"
+    [(first)]="first"
+    responsiveLayout="scroll"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10, 25, 50, 100, 500, 1000]"
+    [globalFilterFields]="displayedColumns"
+  >
+    <ng-template pTemplate="caption">
+      <div
+        class="
+          d-flex
+          align-items-center
+          flex-column flex-md-row
+          justify-content-between
+        "
+      >
+        <button
+          pButton
+          pRipple
+          label="New"
+          icon="pi pi-plus"
+          class="p-button-success mr-2 d-none d-md-block"
+          (click)="New_Clicked()"
+        ></button>
+        <h5 class="m-0 mb-3 mb-md-0 text-center">
+          Manage Product Subscription Type
+        </h5>
+        <div class="d-flex justify-content-between c-w-100">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2 d-block d-md-none"
+            (click)="New_Clicked()"
+          ></button>
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input
+              pInputText
+              type="text"
+              class="form-control search-control p-inputtext"
+              (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search..."
+            />
+          </span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="productSubscriptionTypeId">
+          Product Subscription Type ID
+          <p-sortIcon field="productSubscriptionTypeId"></p-sortIcon>
+        </th>
+        <th pSortableColumn="product">
+          Product Name
+          <p-sortIcon field="product"></p-sortIcon>
+        </th>
+        <th pSortableColumn="subscriptionType">
+          Subscription Type
+          <p-sortIcon field="subscriptionType"></p-sortIcon>
+        </th>
+        <th pSortableColumn="priceUSD">
+          Price USD
+          <p-sortIcon field="priceUSD"></p-sortIcon>
+        </th>
+        <th pSortableColumn="isActive">
+          isActive
+          <p-sortIcon field="isActive"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.productSubscriptionTypeId }}</td>
+        <td>{{ item.product }}</td>
+        <td>{{ item.subscriptionType }}</td>
+        <td>{{ item.priceUSD }}</td>
+        <td *ngIf="item.isActive">
+          <svg height="30" width="30">
+            <circle cx="15" cy="15" r="8" stroke-width="3" fill="green" />
+          </svg>
+        </td>
+        <td *ngIf="!item.isActive">
+          <svg height="30" width="30">
+            <circle cx="15" cy="15" r="8" stroke-width="3" fill="red" />
+          </svg>
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+            (click)="Edit_Clicked(item)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning p-button-trash"
+            (click)="Delete_Clicked(item)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<!-- </mat-card> -->
+
+<p-dialog
+  [(visible)]="showDialog"
+  [style]="{ width: '450px' }"
+  header="Subscription Type Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <div class="p-field">
+        <label for="Name">Product</label>
+        <p-dropdown
+          [options]="products"
+          pInputText
+          [(ngModel)]="ProductsubscriptionType.productId"
+          optionLabel="name"
+          optionValue="productId"
+          placeholder="Select Product"
+        ></p-dropdown>
+        <small
+          class="p-invalid text-danger"
+          *ngIf="submitted && !ProductsubscriptionType.productId"
+          >productId is required.</small
+        >
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="subscriptionTypeId">Subscription Type</label>
+      <p-dropdown
+        [options]="SubscriptionType"
+        [(ngModel)]="ProductsubscriptionType.subscriptionTypeId"
+        optionLabel="description"
+        optionValue="subscriptionTypeId"
+        placeholder="Select Subscription Type"
+      ></p-dropdown>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !ProductsubscriptionType.subscriptionTypeId"
+        >Subscription Type is required.</small
+      >
+    </div>
+    <div class="p-field p-col-12 md-3">
+      <label for="priceUSD">priceUSD</label>
+      <p-inputNumber
+        [(ngModel)]="ProductsubscriptionType.priceUSD"
+        mode="decimal"
+        [showButtons]="true"
+        inputId="priceUSD"
+        [min]="1"
+        [max]="100"
+      >
+      </p-inputNumber>
+      <small
+        class="p-invalid text-danger"
+        *ngIf="submitted && !ProductsubscriptionType.priceUSD"
+        >priceUSD is required.</small
+      >
+    </div>
+    <div class="p-col-12 md-3">
+      <br />
+      <div class="p-field-checkbox">
+        <p-checkbox
+          [(ngModel)]="ProductsubscriptionType.isActive"
+          [binary]="true"
+        ></p-checkbox>
+        <label class="mb-0 ml-2" for="IsActive">IsActive</label>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text btn-sm"
+      (click)="Cancel_Clicked()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Ok"
+      icon="pi pi-check"
+      class="p-button-text btn-sm"
+      (click)="Ok_Clicked()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

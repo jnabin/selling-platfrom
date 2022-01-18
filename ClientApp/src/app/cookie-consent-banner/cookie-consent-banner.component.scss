@@ -1,0 +1,36 @@
+p {
+    margin: 24px 0;
+    line-height: 2;
+  }
+  
+  .wrapper {
+    padding: 32px;
+  }
+  
+  .cookie-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #2f3640;
+    opacity: 0.9;
+    color: #f5f6fa;
+    padding: 0 32px;
+    box-shadow: 0 -2px 16px rgba(47, 54, 64, 0.39);
+    transition:all 0.3s;
+  }
+  
+  .cookie-container a {
+    color: #f5f6fa;
+  }
+  
+  .cookie-btn {
+    background: #e84118;
+    border: 0;
+    color: #f5f6fa;
+    padding: 10px 40px;
+    font-size: 17px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }

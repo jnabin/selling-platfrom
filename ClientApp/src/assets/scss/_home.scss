@@ -1,0 +1,36 @@
+.prodiict-details-warpper {
+    .product-title {
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+    .product-text {
+        font-size: 14px;
+    }
+
+}
+
+//added by nabin
+.section-padding{
+    .row-margin-top{
+        margin-top: 80px;
+    }
+    .product-img{
+        cursor: zoom-in;
+        box-shadow: 0 12px 40px 0 rgb(71 132 222 / 60%);
+    }
+}
+.wp-image{
+    max-width: 60%;
+}
+.modal-content img{
+    cursor: zoom-out;
+}
+.modal-content{
+    animation-name: example;
+    animation-duration: 0.4s;
+  }
+  
+  @keyframes example {
+    0%   {transform: scale(0.5)}
+    100% {transform: scale(1)}
+  }

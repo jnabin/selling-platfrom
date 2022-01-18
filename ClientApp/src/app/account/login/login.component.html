@@ -1,0 +1,25 @@
+<div class="authentication-wrapper">
+    <div class="logo-brand">
+        <img src="assets/images/logo.png" class="img-fluid" alt="img" />
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <div *ngIf="f.email.touched && f.email.invalid" class="danger">
+            <div *ngIf="f.email.errors && f.email.errors.required">Email is required.</div>
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="exampleInputPassword1" placeholder="Password">
+          <div *ngIf="f.password.touched && f.password.invalid" class="danger">
+            <div *ngIf="f.password.errors && f.password.errors.required">Password is required.</div>
+        </div>
+        
+        </div>
+        
+        <button type="submit" class="text-white p-button-success w-100 mt-3 mb-3" pButton label="Login"></button>
+        <a href="javascript:void(0);" routerLink="/forgot-password" class="forget-pws text-right d-block"> Forget Password</a>
+      </form>
+</div>

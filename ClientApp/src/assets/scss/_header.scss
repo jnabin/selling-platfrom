@@ -1,0 +1,72 @@
+/*=============================================
+=            Header Styles for Site           =
+=============================================*/
+
+.header-wrapper {
+    background: $color-white;
+    z-index: 9;
+    -webkit-box-shadow: 0 1px 10px 0 rgb(0 0 0 / 5%);
+    -moz-box-shadow: 0 1px 10px 0 rgba(0,0,0,.05);
+    box-shadow: 0 2px 3px 0 rgb(192 198 201 / 35%);
+    -webkit-transition: background 100ms ease-in-out,box-shadow 100ms ease-in-out,height 100ms ease-in-out,transform 400ms ease;
+    -moz-transition: background 100ms ease-in-out,box-shadow 100ms ease-in-out,height 100ms ease-in-out,transform 400ms ease;
+    -o-transition: background 100ms ease-in-out,box-shadow 100ms ease-in-out,height 100ms ease-in-out,transform 400ms ease;
+    transition: background 100ms ease-in-out,box-shadow 100ms ease-in-out,height 100ms ease-in-out,transform 400ms ease;
+    padding: 0 10px;
+    .p-menubar {
+        background: transparent;
+        border: 0;
+        padding: 0 !important;
+    }
+    .p-menubar-root-list {
+        .p-menuitem {
+            padding: 0 13px;
+            .p-menuitem-link{
+              border-radius: 0 !important;
+              padding: 23px !important;
+                &.p-menuitem-link-active{
+                  background-image: linear-gradient(#70c384,#438d54);
+                  background-color: transparent;
+                  background-size: 100% 3px;
+                  background-repeat: no-repeat;
+                  span {
+                    color: $default-highlighter-color !important;
+                }
+                }
+                &.p-menuitem-link:hover {
+                  background: $default-highlighter-color !important;
+                  outline: none;
+                  box-shadow: none;
+                  span {
+                      color: $color-white !important;
+                  }
+              }
+            }
+        }
+    }
+}
+
+/*=====  End Header Styles for Site  ======*/
+
+/*=============================================
+=            Header Media Styles            =
+=============================================*/
+
+@media screen and (max-width:$break-sm) {
+  .header-wrapper {
+    .p-menubar-end {
+      .p-button {
+        background: transparent;
+        color: $color-black;
+        border: 0;
+
+        .p-button-label {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+
+/*=====  End of Header Media Styles  ======*/

@@ -1,0 +1,137 @@
+ <!--Please add fields : Name Email Phone Subject Message (Also explore google
+captcha) Create a contact service with a dummy POST call (I will create API
+later)-->
+<p-toast></p-toast>
+<div *ngIf="isSubmitted">
+  <h2>Your message submitted successfully</h2>
+</div>
+<div class="container py-5" *ngIf="!isSubmitted">
+  <h1 class="mb-5 text-center">Contact Us</h1>
+  <p class="mb-0 text-center">We can solve your problem only if you tell us about it</p>
+  <div class="row">
+    
+    <div class="col-md-8">
+      
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-card mb-5">
+        <div class="row mt-4">
+          <div class="col-12 mt-4">
+            <span class="p-float-label">
+              <input formControlName="Name" id="Name" type="text" pInputText class="form-control">
+              <label for="float-input" class="lable">Name</label>
+            </span>
+          </div>
+          <div class="col-12 mt-4">
+            <span class="p-float-label">
+              <input formControlName="Email" id="Email" type="text" pInputText class="form-control">
+              <label for="float-input">Email address</label>
+            </span>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-12 mt-4">
+            <span class="p-float-label">
+              <input formControlName="Phone" id="Phone" type="text" pInputText class="form-control">
+              <label for="float-input">Phone</label>
+            </span>
+          </div>
+          <div class="col-12 mt-4">
+            <span class="p-float-label">
+              <input formControlName="Subject" id="Subject" type="text" pInputText class="form-control">
+              <label for="float-input">Subject</label>
+            </span>
+          </div>
+        </div>
+        <!--<div class="form-group">
+          <label for="Name">Name</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="Name"
+                 id="exampleInputPassword1"
+                 placeholder="Name" />
+          <div *ngIf="f.Name.touched && f.Name.invalid" class="danger">
+            <div *ngIf="f.Name.errors && f.Name.errors.required">
+              Name is required.
+            </div>
+          </div>
+        </div>
+            <div class="form-group">
+          <label for="Email">Email address</label>
+          <input type="Email"
+                 class="form-control"
+                 formControlName="Email"
+                 id="Email"
+                 aria-describedby="emailHelp"
+                 placeholder="Enter Email" />
+          <div *ngIf="f.Email.touched && f.Email.invalid" class="danger">
+            <div *ngIf="f.Email.errors && f.Email.errors.required">
+              Email is required.
+            </div>
+          </div>
+        </div>-->
+        <!--<div class="form-group">
+          <label for="Phone">Phone</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="Phone"
+                 id="Phone"
+                 placeholder="Phone" />
+          <div *ngIf="f.Phone.touched && f.Phone.invalid" class="danger">
+            <div *ngIf="f.Phone.errors && f.Phone.errors.required">
+              Phone is required.
+            </div>
+          </div>
+        </div>-->
+        <!--<div class="form-group">
+          <label for="Subject">Subject</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="Subject"
+                 id="exampleInputPassword1"
+                 placeholder="Subject" />
+          <div *ngIf="f.Subject.touched && f.Subject.invalid" class="danger">
+            <div *ngIf="f.Subject.errors && f.Subject.errors.required">
+              Subject is required.
+            </div>
+          </div>
+        </div>-->
+  
+  
+  
+  
+        <span class="p-float-label">
+          <textarea id="float-input" rows="5" cols="30" pInputTextarea class="form-control"></textarea>
+          <label for="float-input">Message</label>
+        </span>
+        <br>
+        <re-captcha id="recaptcha" name="recaptcha" #recaptcha formControlName="Token"></re-captcha>
+  
+        <!--<div class="form-group">
+          <label for="Message">Message</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="Message"
+                 id="Message"
+                 placeholder="Message" />
+          <div *ngIf="f.Message.touched && f.Message.invalid" class="danger">
+            <div *ngIf="f.Message.errors && f.Message.errors.required">
+              Subject is required.
+            </div>
+          </div>
+        </div>-->
+  
+        <button type="submit"
+                class="text-white p-button-success w-100 mt-5 mb-3"
+                pButton
+                label="Submit"></button>
+      </form>
+    </div>
+    <div class="col-md-4 mt-md-5 pt-md-5 text-center">
+      <h5>Phone: (+91) 141-6768730</h5>
+      <h5>Email: contact@xatocode.com</h5>
+    </div>
+  </div>
+</div>
+
+
+
+

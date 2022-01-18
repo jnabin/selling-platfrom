@@ -1,0 +1,155 @@
+.pricing-wrapper {
+  .features-list {
+    padding: 20px 30px 10px;
+
+    li {
+      padding: 10px 0;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .row-card {
+    margin: 101px auto 30px auto;
+  }
+
+  .container {
+    margin-top: 100px;
+  }
+  /* li {
+    padding-top: 20px;
+  }*/
+
+  .basic-card-top {
+    text-align: center;
+  }
+
+  .price-des {
+    text-align: center;
+  }
+
+  .price-short-des {
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .basic-des {
+    font-size: 25px;
+    color: green;
+    font-weight: bold;
+  }
+
+  .card {
+    border: 1px solid #ececec;
+  }
+
+  .card:hover {
+    box-shadow: 0px -1px 29px 6px #ececec;
+  }
+
+  .price-des {
+    color: black;
+    font-weight: bold;
+  }
+
+  .price-basic {
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+    margin-top: 10px;
+  }
+
+  del {
+    color: red;
+  }
+
+  .new-price {
+    font-size: 15px;
+    color: black;
+  }
+
+  .new-card-top {
+    margin-top: 30px;
+  }
+
+  .btn-basic {
+    width: 90%;
+    height: 56px;
+    margin: 0 auto;
+    /* background: #2196f3; */
+    background-color: #0073dc !important;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .check {
+    margin-right: 7px;
+    color: green
+  }
+
+  .item-of-list {
+    font-size: 20px;
+    margin-top: 20px;
+    color: black;
+  }
+  /* hr {
+    width: 68%;
+    margin: 49px auto auto auto;
+    background-color: green;
+  }*/
+
+  .new-price {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+
+  .des-card {
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  .price {
+    margin-top: 10px;
+    color: black;
+    font-weight: 500;
+    font-size: 30px;
+    font-weight: 500;
+    margin-right: 10px
+  }
+
+  .new-price {
+    margin-top: 10px;
+    color: black;
+    font-size: 30px;
+  }
+
+  .item-of-card {
+    color: black;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .basic-des-card {
+    display: flex;
+    justify-content: center;
+  }
+
+  .discount {
+    font-size: 18px;
+    color: #000;
+    text-transform: capitalize;
+  }
+
+  .btn-top {
+    margin-top: 33px;
+  }
+}

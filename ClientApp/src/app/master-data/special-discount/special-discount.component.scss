@@ -1,0 +1,26 @@
+.checkmark_stem {
+    position: absolute;
+    width: 3px;
+    height: 9px;
+    background-color: #ccc;
+    left: 11px;
+    top: 6px;
+}
+
+.checkmark {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    -ms-transform: rotate(45deg);
+    /* IE 9 */
+    -webkit-transform: rotate(45deg);
+    /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+#circle {
+    width: 100px;
+    height: 100px;
+    background: red;
+    border-radius: 50%
+}
