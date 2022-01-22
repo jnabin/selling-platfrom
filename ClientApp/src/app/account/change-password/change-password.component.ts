@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
+import { CustomMessageService } from 'src/app/services/Util/custom-message.service';
 import { FormValidatorService } from '../../services/Util/form-validator.service';
 import { AuthService } from '../../shared/core/auth.service';
 import { UserService } from '../service/user.service';
@@ -15,7 +15,7 @@ import { UserService } from '../service/user.service';
 export class ChangePasswordComponent implements OnInit {
   public form: FormGroup;
   constructor(private titleService: Title, public user: UserService, public fb: FormBuilder,
-    public router: Router, private authService: AuthService, private messageService: MessageService, private formValidator: FormValidatorService) {
+    public router: Router, private authService: AuthService, private messageService: CustomMessageService, private formValidator: FormValidatorService) {
 
     this.form = this.fb.group({
       email: [null, Validators.compose([Validators.required, Validators.email])],
@@ -40,16 +40,12 @@ export class ChangePasswordComponent implements OnInit {
           this.router.navigateByUrl("/login");
         },
         err => {
-          console.log(err)
-          debugger
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error, life: 3000 });
-          alert(err.error)
+          this.messageService.error(err);
         }
       );
     } else {
       this.formValidator.validateAllFormFields(this.form);
     }
-
   }
 
  

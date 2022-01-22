@@ -1,26 +1,28 @@
-.download-section {
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-    text-align: center;
-    background: #01182b;
-    height: 300px;
-    padding-top: 75px;
-    h3{
-        color: #fff;
-        font-size: 40px;
-        font-weight: 700;
-        margin-bottom: 30px;
-    }
-    .free-download-btn {
-        border: none;
-        border-radius: 3px;
-        background-color: #0f97ff;
-        color: #fff;
-        min-width: 150px;
-        height: 46px;
-        line-height: 46px;
-        vertical-align: middle;
-        font-size: 16px;
-        padding: 12px 32px 12px 32px;
+//added by nabin
+.download-btn{
+    a{
+        padding: 15px 50px 15px 50px;
+        font-weight: bold;
         transition: box-shadow .2s ease-in-out;
+        border-radius: 5px;
+        color: #fff !important;
+        background-color: $xc-logo-color;
+        font-size: 18px;
+    }
+    a:hover{
+        background-color: $default-highlighter-color;
+    }
+} 
+.prerequisites{
+    ul {
+        list-style: none;
+    }
+    ol{
+        li{
+            text-align: justify;
+        }
+    }
+    .check {
+        margin-right: 7px;
     }
 }

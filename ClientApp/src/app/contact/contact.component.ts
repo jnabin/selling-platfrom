@@ -1,9 +1,8 @@
+import { CustomMessageService } from './../services/Util/custom-message.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { UserService } from '../account/service/user.service';
 import { ContactService } from '../services/contact.service';
 import { AuthService } from '../shared/core/auth.service';
 
@@ -21,7 +20,7 @@ export class ContactComponent implements OnInit {
     public fb: FormBuilder,
     public router: Router,
     private authService: AuthService,
-    private messageService: MessageService
+    private messageService: CustomMessageService
   ) {
     this.form = this.fb.group({
       Token : ['', Validators.required],
@@ -54,33 +53,17 @@ export class ContactComponent implements OnInit {
           // });
           this.isSubmitted = true;
          // this.SubscriptionType = {} as any;
-          this.messageService.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Message sent successfully",
-            life: 3000,
-          });
+          this.messageService.success("Message sent successfully");
         },
         (err) => {
-          console.log(err);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: err.error,
-            life: 3000,
-          });
+          this.messageService.error(err);
         }
       );
     } else {
       for (const control of Object.keys(form.controls)) {
         form.controls[control].markAsTouched();
       }
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Something went wrong',
-        life: 3000,
-      });
+      this.messageService.error('Something went wrong');
     }
   }
 }

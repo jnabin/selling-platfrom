@@ -1,3 +1,8 @@
 .minheight{
     min-height: 600px;
 }
+//added by nabin
+:host ::ng-deep .custom-scrolltop {
+    left:23px;
+    opacity: 0.9;
+  }

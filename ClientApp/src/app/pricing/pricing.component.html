@@ -27,15 +27,13 @@
             <p class="item-of-card">Features</p>
             <ul class="mt-3">
               <!--<div class="item-of-card">Features</div>-->
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
+              <li><i class="pi pi-check check"></i> Manually renew every month </li>
+              <li><i class="pi pi-check check"></i> Access to training material and video tutorials </li>
+              <li><i class="pi pi-times check-del"></i> Live online training </li>
+              <li><i class="pi pi-check check"></i> Chart Support </li>
+              <li><i class="pi pi-check check"></i> Email Support-Business hours (IST) </li>
+              <li><i class="pi pi-times check-del"></i> Google Meet or Skype Support </li>
+              <li><i class="pi pi-times check-del"></i> Bulk Purchase offer </li>
             </ul>
           </div>
         </div>
@@ -49,10 +47,10 @@
             </div>
             <div class="basic-des-card">
               <div class="price"><del *ngIf="yearly.specialDiscountPercent>0">${{yearly.priceUSD}}</del></div>
-              <div class="new-price">${{yearly.priceUSD - yearly.specialDiscountPercent /100 * yearly.priceUSD | number : '1.0-0'}}</div>
+              <div class="new-price">${{yearly.priceUSD - yearly?.specialDiscountPercent /100 * yearly.priceUSD | number : '1.0-0'}}</div>
             </div>
-            <p>
-            <p class="discount pt-2" *ngIf="yearly.specialDiscountPercent>0">discount: {{yearly.specialDiscountPercent}}</p>
+            
+            <p class="discount pt-2" *ngIf="yearly.specialDiscountPercent>0">discount: {{yearly?.specialDiscountPercent}}%</p>
            <!-- <p class="discount pt-2" *ngIf="yearly.specialDiscountPercent>0">discount: {{yearly.specialDiscountPercent}}</p>-->
             <div class="btn-top">
               <button class="btn-basic" [routerLink]="['/create-temp-user/']" [queryParams]="{ type: 'y'}">
@@ -64,15 +62,13 @@
           <div class="features-list">
             <p class="item-of-card">Features</p>
             <ul class="mt-3">
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
-              <li><i class="pi pi-check check"></i> item of basic card </li>
+              <li><i class="pi pi-check check"></i> Manually renew every month </li>
+              <li><i class="pi pi-check check"></i> Access to training material and video tutorials </li>
+              <li><i class="pi pi-check check"></i> Live online training </li>
+              <li><i class="pi pi-check check"></i> Chart Support </li>
+              <li><i class="pi pi-check check"></i> Email Support-Business hours (IST) </li>
+              <li><i class="pi pi-check check"></i> Google Meet or Skype Support </li>
+              <li><i class="pi pi-check check"></i> Bulk Purchase offer </li>
             </ul>
           </div>
         </div>

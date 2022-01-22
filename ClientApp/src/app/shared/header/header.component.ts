@@ -39,12 +39,14 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/');
     this.IsUserLoggedIn = false;
   }
+
   getMenus() {
     if (this.IsUserLoggedIn && localStorage.getItem('roleName') == 'Admin') {
       this.items = [
         {
           label: 'Home',
-          routerLink: ['home'],
+          routerLink: ['/'],
+          routerLinkActiveOptions: {exact: true }
         }, 
         {
           label: 'Faq',
@@ -143,7 +145,8 @@ export class HeaderComponent implements OnInit {
       this.items = [
         {
           label: 'Home',
-          routerLink: ['home'],
+          routerLink: ['/'],
+          routerLinkActiveOptions: {exact: true }
         },
         {
           label: 'Download',
@@ -186,7 +189,8 @@ export class HeaderComponent implements OnInit {
       this.items = [
         {
           label: 'Home',
-          routerLink: ['home'],
+          routerLink: ['/'],
+          routerLinkActiveOptions: {exact: true }
         },
         {
           label: 'Download',

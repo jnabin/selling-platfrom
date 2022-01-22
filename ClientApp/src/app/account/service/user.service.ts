@@ -28,6 +28,7 @@ export class UserService {
       Email: email,
       Password: password,
     };
+    console.log(body);
     return this.http.post(environment.BaseURI + 'Account/authenticate', body);
     }
     

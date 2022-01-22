@@ -46,10 +46,6 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      { 
-        path: 'home',
-        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-      },
       { path: 'create-temp-user', component: CreateTempUserComponent },
       {
         path: 'checkout',
@@ -103,7 +99,10 @@ const routes: Routes = [
       },
       { path: 'login', component: LoginComponent },
       { path: 'change-password', component: ChangePasswordComponent },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
+      { 
+        path: '',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+      },
     ],
   },
   { path: '**', component: PageNotFoundComponent },

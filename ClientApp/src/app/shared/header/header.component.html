@@ -1,9 +1,11 @@
 <div class="header-wrapper">
-  <!-- <div class="container"> -->
+  <div class="container">
     <p-menubar [model]="items" class="top-menu">
       <ng-template pTemplate="start">
         <div class="brand-logo mr-4">
-          <img src="assets/images/logo.png" height="60" class="mr-2 py-2">
+          <a [routerLink]="['/']">
+            <img src="assets/images/logo.png" height="60" class="mr-2 py-2">
+          </a>
         </div>
       </ng-template>
       <div>
@@ -30,4 +32,5 @@
     
     
     </p-menubar>
+  </div>
 </div>

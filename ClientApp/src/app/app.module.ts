@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { AppComponent } from './app.component';
 import { RatingModule } from 'primeng/rating';
+import {ScrollTopModule} from 'primeng/scrolltop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -38,7 +39,6 @@ import { LicenseGeneratedComponent } from './payment/license-generated/license-g
 import { WindowRefService } from './services/window-ref.service';
 import { PaymentCancelComponent } from './payment/payment-cancel/payment-cancel.component';
 import { CreateTempUserComponent } from './payment/create-temp-user/create-temp-user.component';
-
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccountComponent } from './account/account.component';
@@ -95,6 +95,8 @@ import { CookieConsentBannerComponent } from './cookie-consent-banner/cookie-con
     CookieConsentBannerComponent
   ],
   imports: [
+    ScrollTopModule,
+    BrowserAnimationsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
     BrowserModule,

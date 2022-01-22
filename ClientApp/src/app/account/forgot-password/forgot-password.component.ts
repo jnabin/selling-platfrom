@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { CustomMessageService } from 'src/app/services/Util/custom-message.service';
 import { FormValidatorService } from '../../services/Util/form-validator.service';
 import { UserService } from '../service/user.service';
 
@@ -12,7 +13,7 @@ import { UserService } from '../service/user.service';
 export class ForgotPasswordComponent implements OnInit {
   public form: FormGroup;
 
-  constructor(private user: UserService, public fb: FormBuilder, private messageService: MessageService, private formValidator: FormValidatorService) {
+  constructor(private user: UserService, public fb: FormBuilder, private messageService: CustomMessageService, private formValidator: FormValidatorService) {
     this.form = this.fb.group({
       email: [null, Validators.compose([Validators.required, Validators.email])]
     });
@@ -31,10 +32,7 @@ export class ForgotPasswordComponent implements OnInit {
 
         },
         err => {
-          console.log(err)
-          debugger
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error, life: 3000 });
-          alert(err.error)
+          this.messageService.error(err);
         }
       );
     } else {

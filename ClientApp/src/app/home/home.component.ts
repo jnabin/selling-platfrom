@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment.prod';
 import * as Aos from "aos";
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('modalClose')
   closeResult = '';
   photoIdentifier = '';
-  constructor(
+constructor(
     private titleService: Title, 
     private http: HttpClient, 
     private cd: ChangeDetectorRef,
@@ -41,7 +41,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    Aos.init();
+    Aos.init({
+      once: true,
+    });
     //setTimeout(() => this.cd.detectChanges(), 3000);
   }
 
